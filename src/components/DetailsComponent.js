@@ -1,11 +1,9 @@
-import _ from 'lodash';
 import React, {Component} from 'react';
-import {View, Text, Button, TouchableOpacity} from 'react-native';
+import {Text } from 'react-native';
 import {connect} from 'react-redux';
 import Tabs from 'react-native-tabs';
 import {openDetails, loadingDetails} from '../actions';
 import {Card, Header,CardItem, Spiner} from './common';
-import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
 import DetailsTabComponent from './DetailsTabComponent';
 import ItemsTabComponent from './ItemsTabComponent';
 import PriceTabComponent from './PriceTabComponent';
@@ -24,7 +22,6 @@ class DetailsComponent extends Component {
 
     renderTabs() {
         const {Item} = this.props.details;
-console.log(this.props);
         switch (this.state.page) {
             case '1':
                 return (
@@ -49,7 +46,6 @@ console.log(this.props);
     }
 
     renderContent() {
-        // console.log(this.props);
         if (this.props.loading ) {
             return (
                 <Spiner size="large" />
