@@ -91,11 +91,9 @@ export const openDetails = (order) => {
 }
 
 export const loadingDetails = (userKey, orderId) => {
-    console.log('orderId', orderId);
     return (dispatch) => {
         // const key="Bearer QfQwMr9GvpILvBFg6DUpd0FkGZeOTvMOXbM9ibP1WlHVIB1PIYcWTBxE7HaLhHABwQ9Im4uVZj0FzCi2FfcVkegzWtCZEA_xLRwabeA56xU-qts7uxpvAoWkJPhkZlZkf8zM08gNZ-lHbh5qo5rSOmjT9UDw6CJyLN2hcciX6zkOCZKdPYr4Z-O_juTvEf9HadP7xUr4XNhukLiZJR6xZrBn2G-_G0LB3tMQ8tP6_c0Fcye6OSaAN_sO7lesoeS9epKWZ5Cu5kLMUdUyyKfJhKzQQUl2iH33boyBOFdq_XsuL0wP-qKyABfhCkIx2p77S1wnaDmNSFqIqGu4ULeGJxSLaRaHekLPHJAuDEnWDxDcUaAQXcYy6obnJC_sIAQSPRE2TBIap7rOFKmOFhVzV2f2u7FNSsLrS2zRpLu9LbLOG4ln4UAeo6S0Z_Tj3Lt6EJk60RDJq0PFefBP4eqMjjS5zdnT54oqatM3qUfGT82Ag1K6-phxXsvlxxIqSxi91EnGf6LQ6jEADwxXtzy-MKYXr0ON2eDDDIoZQLdhldo"
         const key = "Bearer " + userKey;
-        console.log(key);
         const config = {'Authorization': key};
         const url = 'http://vacowebapi.azurewebsites.net/api/Assignments/' + orderId;
         axios.get(url, {headers: config})
@@ -122,7 +120,6 @@ const onLoginFail = (dispatch) => {
 }
 
 const onOrderDetailsLoaded = (dispatch, order) => {
-    console.log('order details loaded', order);
     dispatch({
         type: DETAILS_LOADED_SUCCESS,
         payload: order
@@ -131,7 +128,6 @@ const onOrderDetailsLoaded = (dispatch, order) => {
 }
 
 const onOrdersListLoaded = (dispatch, orders) => {
-    console.log('order list loaded', orders);
     dispatch({
         type: ORDERS_LOADED_SUCCESS,
         payload: orders

@@ -11,7 +11,6 @@ class ListComponent extends Component {
     componentWillMount(){
 
         // if (this.props.orders == null) {
-        console.log(this.props.user);
             this.props.loadingOrders(this.props.user);
             this.createDataSource(this.props);
         // }

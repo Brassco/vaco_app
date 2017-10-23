@@ -19,7 +19,7 @@ class DetailsTabComponent extends Component {
             userImgContainer,
             userImg
         } = styles;
-console.log(this.props);
+
             const {Addresses, Details, DateCreated, Distance} = this.props.details;
 
             var addressFrom = '';

@@ -15,7 +15,6 @@ class OrderItemComponent extends Component {
             descriptionContainer,
             headerText
         } = styles;
-        console.log(deviceWidth);
         return (
             <View style={{
                 flex: 1,
@@ -28,12 +27,6 @@ class OrderItemComponent extends Component {
                         height: 150,
                         width: deviceWidth,
                         }}
-                          onLayout={
-                              (event) => {
-                                  const {x, y, width, height} = event.nativeEvent.layout;
-                                  console.log(width);
-                              }
-                          }
                     >
                         <View style={headerStyle}>
                             <Text style={headerText}> 1 груз </Text>
