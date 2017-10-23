@@ -1,0 +1,9 @@
+export const  EMAIL_CHANGE = 'email_change';
+export const PASSWORD_CHANGE = 'password_change';
+export const LOGIN_USER_SUCCESS = 'login_user_success';
+export const LOGIN_USER_FAIL = 'login_user_fail';
+export const LOGIN_USER = 'login_user';
+export const LOADING_ORDERS = 'loading_orders';
+export const LOADING_DETAILS = 'loading_details';
+export const DETAILS_LOADED_SUCCESS = 'details_loaded_success';
+export const ORDERS_LOADED_SUCCESS = 'orders_loaded_success';

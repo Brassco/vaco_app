@@ -1,0 +1,3 @@
+rootProject.name = 'vaco_app'
+
+include ':app'
