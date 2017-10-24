@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, Platform} from 'react-native';
 
 const Card = (props) => {
     return (
@@ -13,7 +13,7 @@ const style = {
     containerStyle: {
         flex: 1,
         elevation: 1,
-        marginTop: 10
+        marginTop: (Platform.OS === 'ios') ? 20 : 1
         }
     }
 

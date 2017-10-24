@@ -40,7 +40,9 @@ const Header = (props) => {
 
 const style = {
     textStyle: {
-        fontSize: 20
+        fontSize: 20,
+        fontWeight: '500',
+        color: '#ddf'
     },
     viewStyle: {
         flexDirection: 'row',
