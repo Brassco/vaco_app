@@ -20,7 +20,7 @@ class DetailsTabComponent extends Component {
             userImg
         } = styles;
 
-            const {Addresses, Details, DateCreated, Distance} = this.props.details;
+            const {Addresses, AssigmentDueDateTime, DateCreated, Distance} = this.props.details;
 
             var addressFrom = '';
             var addressTo = '';
@@ -125,7 +125,9 @@ class DetailsTabComponent extends Component {
                         {/*<DetailsCard>*/}
                             <View>
                                 <Text style={[opacityText, redText]}> Сроки доставки</Text>
-                                <Text style={redText}> 27.07 - 27.07</Text>
+                                <Text style={redText}>
+                                    {AssigmentDueDateTime}
+                                </Text>
                             </View>
                         </DetailsCard>
                     </View>

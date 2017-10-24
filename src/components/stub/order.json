@@ -70,6 +70,32 @@
       "Weight": null,
       "LHW": "Не указано",
       "Size": "Не указано"
+    },
+    {
+      "Id": 4288,
+      "Name": "Картошка",
+      "Category": {
+        "Id": 97,
+        "Name": "Овощи",
+        "SVG": null
+      },
+      "Description": null,
+      "Weight": null,
+      "LHW": "Не указано",
+      "Size": "Не указано"
+    },
+    {
+      "Id": 4288,
+      "Name": "Картошка",
+      "Category": {
+        "Id": 97,
+        "Name": "Овощи",
+        "SVG": null
+      },
+      "Description": null,
+      "Weight": null,
+      "LHW": "Не указано",
+      "Size": "Не указано"
     }
   ],
   "Movers": {

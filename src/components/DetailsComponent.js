@@ -15,7 +15,6 @@ class DetailsComponent extends Component {
     state = {page:'1'};
 
     componentWillMount() {
-        console.log(this.props);
         const {userKey, selectedOrder} = this.props;
         this.props.loadingDetails(userKey, selectedOrder.Id);
     }
@@ -59,27 +58,28 @@ class DetailsComponent extends Component {
 
                 <Tabs
                     selected={this.state.page} style={tabbarView}
-                    selectedStyle={{color:'red'}} onSelect={el=>this.setState({page:el.props.name})}
+                    selectedStyle={{color:'#909087'}} onSelect={el=>this.setState({page:el.props.name})}
                 >
                     <Text name="1"
-                          selectedIconStyle={{borderBottomWidth:2,borderTopColor:'#5970FF'}}
+                          selectedIconStyle={{borderBottomWidth:2,borderBottomColor:'#909087'}}
                           style={iconTextStyle}>
                         Детали
                     </Text>
                     <Text name="2"
-                          selectedIconStyle={{borderBottomWidth:2,borderTopColor:'#5970FF'}}
+                          selectedIconStyle={{borderBottomWidth:2,borderBottomColor:'#909087'}}
                           style={iconTextStyle} >
                         Груз
                     </Text>
                     <Text name="3"
-                          selectedIconStyle={{borderBottomWidth:2,borderTopColor:'#5970FF'}}
+                          selectedIconStyle={{borderBottomWidth:2,borderBottomColor:'#909087'}}
                           style={iconTextStyle}>
                         Цена
                     </Text>
                     <Text name="4"
-                          selectedIconStyle={{borderBottomWidth:2,borderTopColor:'#5970FF'}}
+                          selectedIconStyle={{borderBottomWidth:2,borderBottomColor:'#909087'}}
                           style={iconTextStyle} >
                         Сообщения
+
                     </Text>
                 </Tabs>
 
@@ -109,7 +109,7 @@ const styles = {
         top:0,
         right:0,
         left:0,
-        height:30,
+        height:40,
         opacity:1,
         backgroundColor:'#579fff',
         justifyContent: 'center',

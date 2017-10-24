@@ -17,15 +17,17 @@ class OrderItemComponent extends Component {
         } = styles;
         return (
             <View style={{
-                flex: 1,
+                // flex: 1,
                 flexDirection: 'column',
                 width: deviceWidth,
                 paddingTop: 15
             }}>
-                <DetailsCard>
+                <DetailsCard style={{paddingLeft: 0, paddingRight: 0}}>
                     <View style={{
+                        flex: 1,
                         height: 150,
-                        width: deviceWidth,
+                        // marginRight: 15,
+                        // width: deviceWidth,
                         }}
                     >
                         <View style={headerStyle}>
