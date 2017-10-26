@@ -12,17 +12,28 @@ const AddressComponent = ({from, to}) => {
                 </Text>
             </View>
             <View style={valueContainer}>
-                <View style={arrowContainer}>
-                    <ImageBackground
+                <View>
+                    <Image
                         style={{
-                            flex: 1,
+                            justifyContent: 'center',
+      			alignItems: 'center',
+			width: 70,
+			height: 18	
                         }}
                         source={require('../img/arrow.png')}
                     >
+			<View style={arrowContainer}
+			style={{
+				height: 18,
+    				width: 70,
+    				backgroundColor: 'rgba(0,0,0,0)'
+			}} 
+			>
                         <Text style={arrowText}>
                             125
                         </Text>
-                    </ImageBackground>
+			</View>
+                    </Image>
                 </View>
             </View>
         </DetailsCard>
@@ -43,10 +54,9 @@ const styles = {
       flex: 3
     },
     arrowContainer: {
-      // flexDirection: 'row',
-      //   height: 13,
-      //   justifyContent: 'center',
-      //   alignItems: 'center'
+      height: 18,
+	width: 70,
+    	backgroundColor: 'rgba(0,0,0,0)'
     },
     arrowText: {
         color: '#fff',
