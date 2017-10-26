@@ -12,7 +12,7 @@ class ItemsTabComponent extends Component {
             <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                scrollEventThrottle={10}
+                scrollEventThrottle={5}
                 pagingEnabled
                 onScroll={
                     Animated.event(

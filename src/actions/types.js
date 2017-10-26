@@ -7,3 +7,4 @@ export const LOADING_ORDERS = 'loading_orders';
 export const LOADING_DETAILS = 'loading_details';
 export const DETAILS_LOADED_SUCCESS = 'details_loaded_success';
 export const ORDERS_LOADED_SUCCESS = 'orders_loaded_success';
+export const BACK_TO_LIST = 'back_to_list';
