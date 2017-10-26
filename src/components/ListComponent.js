@@ -58,6 +58,7 @@ class ListComponent extends Component {
     }
 
     render() {
+        console.log(this.props);
         return (
             <Card>
                 <Header headerText="Список заявок" />

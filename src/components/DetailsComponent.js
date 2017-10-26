@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {Text } from 'react-native';
 import {connect} from 'react-redux';
 import Tabs from 'react-native-tabs';
-import {openDetails, loadingDetails} from '../actions';
+import {Actions} from 'react-native-router-flux';
+import {openDetails, loadingDetails, backToList} from '../actions';
 import {Card, Header,CardItem, Spiner} from './common';
 import DetailsTabComponent from './DetailsTabComponent';
 import ItemsTabComponent from './ItemsTabComponent';
@@ -44,6 +45,12 @@ class DetailsComponent extends Component {
         }
     }
 
+    goBack = () => {
+        console.log('go back clicked');
+        this.props.backToList();
+        Actions.pop();
+    }
+
     renderContent() {
         if (this.props.loading ) {
             return (
@@ -54,7 +61,7 @@ class DetailsComponent extends Component {
         const headerText = 'Заказ №' + this.props.details.Id;
         return (
             <Card>
-                <Header headerText={headerText} backButton/>
+                <Header headerText={headerText} backButton onPress={this.goBack}/>
 
                 <Tabs
                     selected={this.state.page} style={tabbarView}
@@ -133,4 +140,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps,{openDetails, loadingDetails})(DetailsComponent);
+export default connect(mapStateToProps,{openDetails, loadingDetails, backToList})(DetailsComponent);

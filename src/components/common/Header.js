@@ -6,14 +6,10 @@ import {Actions} from 'react-native-router-flux';
 const Header = (props) => {
     const {textStyle, viewStyle} = style;
 
-    const goBack = () => {
-        Actions.pop();
-    }
-
     const renderBackButton = () => {
         if (props.backButton) {
             return (
-                <BackButton onPress={goBack}/>
+                <BackButton onPress={() => props.onPress()}/>
             )
         }
     }
