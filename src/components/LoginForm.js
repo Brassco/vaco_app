@@ -47,6 +47,7 @@ class LoginForm extends Component {
                         placeholder={'пароль'}
                         onChangeText={this.changePassword.bind(this)}
                         value={this.props.password}
+                        secureTextEntry={true}
                     />
                 </CardItem>
 

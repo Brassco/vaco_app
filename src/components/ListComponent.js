@@ -1,19 +1,16 @@
 import React, {Component} from 'react';
-import {ScrollView, ListView} from 'react-native';
+import {ListView} from 'react-native';
 import {connect} from 'react-redux';
 import {loadingOrders, openDetails} from '../actions';
 import ItemDetails from './ItemDetails';
-import {Header, Card, Spiner, CardItem, DetailsCard} from './common';
+import {Header, Card, Spiner} from './common';
 
 
 class ListComponent extends Component {
 
     componentWillMount(){
-
-        // if (this.props.orders == null) {
-            this.props.loadingOrders(this.props.user);
-            this.createDataSource(this.props);
-        // }
+        this.props.loadingOrders(this.props.user);
+        this.createDataSource(this.props);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -58,7 +55,6 @@ class ListComponent extends Component {
     }
 
     render() {
-        console.log(this.props);
         return (
             <Card>
                 <Header headerText="Список заявок" />
@@ -71,7 +67,6 @@ class ListComponent extends Component {
 }
 
 mapStateToProps = ({auth, orders}) => {
-
     return {
         user: auth.user,
         loading: orders.loading,

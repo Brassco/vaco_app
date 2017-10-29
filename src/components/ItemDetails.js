@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableWithoutFeedback} from 'react-native';
 import { NavigationActions } from 'react-navigation';
-import {Card, CardItem, Button, DetailsCard} from './common';
+import {CardItem} from './common';
 import {ItemRow, AddressComponent, DeliveryDateComponent, CreatedDateComponent} from './parts';
 
 const ItemDetails = ({item, onPress}) => {

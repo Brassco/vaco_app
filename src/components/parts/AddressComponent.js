@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, Text, Image, ImageBackground} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import {DetailsCard} from '../common';
 
 const AddressComponent = ({from, to}) => {
-    const {container, textContainer, valueContainer, arrowContainer, textStyle, arrowText} = styles;
+    const {imageStyle, textContainer, valueContainer, arrowContainer, textStyle, arrowText} = styles;
     return (
         <DetailsCard >
             <View style={textContainer}>
@@ -14,25 +14,14 @@ const AddressComponent = ({from, to}) => {
             <View style={valueContainer}>
                 <View>
                     <Image
-                        style={{
-                            justifyContent: 'center',
-      			alignItems: 'center',
-			width: 70,
-			height: 18	
-                        }}
+                        style={imageStyle}
                         source={require('../img/arrow.png')}
                     >
-			<View style={arrowContainer}
-			style={{
-				height: 18,
-    				width: 70,
-    				backgroundColor: 'rgba(0,0,0,0)'
-			}} 
-			>
-                        <Text style={arrowText}>
-                            125
-                        </Text>
-			</View>
+                        <View style={arrowContainer}>
+                            <Text style={arrowText}>
+                                125
+                            </Text>
+                        </View>
                     </Image>
                 </View>
             </View>
@@ -47,16 +36,15 @@ const styles = {
         justifyContent: 'space-around'
     },
     textContainer:{
-        flex:7,
-        // backgroundColor: '#579fff'
+        flex:7
     },
     valueContainer: {
-      flex: 3
+        flex: 3
     },
     arrowContainer: {
-      height: 18,
-	width: 70,
-    	backgroundColor: 'rgba(0,0,0,0)'
+        height: 18,
+        width: 70,
+        backgroundColor: 'rgba(0,0,0,0)'
     },
     arrowText: {
         color: '#fff',
@@ -67,6 +55,12 @@ const styles = {
     textStyle: {
         color: '#61c9eb',
         fontWeight: '600'
+    },
+    imageStyle: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 70,
+        height: 18
     }
 }
 

@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import {View, Text, Dimensions} from 'react-native';
 import {DetailsCard} from './common';
-import Icon from './parts/Icon';
 
 class OrderItemComponent extends Component {
 
    render() {
         const {item} =this.props;
-        const deviceWidth = (Dimensions.get('window').width);
+
         const {
+            container,
             headerStyle,
             descriptionTextStyle,
             itemNameStyle,
@@ -16,18 +16,11 @@ class OrderItemComponent extends Component {
             headerText
         } = styles;
         return (
-            <View style={{
-                // flex: 1,
-                flexDirection: 'column',
-                width: deviceWidth,
-                paddingTop: 15
-            }}>
+            <View style={container}>
                 <DetailsCard style={{paddingLeft: 0, paddingRight: 0}}>
                     <View style={{
                         flex: 1,
-                        height: 150,
-                        // marginRight: 15,
-                        // width: deviceWidth,
+                        height: 150
                         }}
                     >
                         <View style={headerStyle}>
@@ -54,7 +47,14 @@ class OrderItemComponent extends Component {
 
 }
 
+const deviceWidth = (Dimensions.get('window').width);
+
 const styles = {
+    container: {
+        flexDirection: 'column',
+        width: {deviceWidth},
+        paddingTop: 15
+    },
     headerStyle: {
         backgroundColor: '#c9c9c0',
         alignItems: 'center',

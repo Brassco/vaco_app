@@ -3,7 +3,7 @@ import {View, Text, Image} from 'react-native';
 import {DetailsCard} from '../common';
 
 const DeliveryDateComponent = ({date}) => {
-    const {container, textContainer, valueContainer, dateStyle, textStyle} = styles;
+    const {textContainer, valueContainer, dateStyle, textStyle} = styles;
     return (
         <DetailsCard>
             <View style={textContainer}>
@@ -40,7 +40,6 @@ const styles = {
         flex:4,
         flexDirection: 'row',
         justifyContent: 'flex-start'
-        // backgroundColor: '#579fff'
     },
     valueContainer:{
         flex:1,

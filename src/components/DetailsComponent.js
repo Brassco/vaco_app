@@ -46,7 +46,6 @@ class DetailsComponent extends Component {
     }
 
     goBack = () => {
-        console.log('go back clicked');
         this.props.backToList();
         Actions.pop();
     }
@@ -131,7 +130,6 @@ const styles = {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
         userKey: state.auth.user.access_token,
         selectedOrder: state.order.selectedOrder,

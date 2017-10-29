@@ -3,9 +3,6 @@ import {Router, Scene, Stack, Tabs} from 'react-native-router-flux';
 import LoginForm from './components/LoginForm';
 import ListComponent from './components/ListComponent';
 import DetailsComponent from './components/DetailsComponent';
-import DetailsTabComponent from './components/DetailsTabComponent';
-import ItemsTabComponent from './components/ItemsTabComponent';
-import TabView from './components/TabView';
 
 const RouterComponent = () => {
     return (

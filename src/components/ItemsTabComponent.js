@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import {View, Animated, ScrollView} from 'react-native';
-import {connect} from 'react-redux';
-import {Card, Header, Spiner} from './common';
+import {Animated, ScrollView} from 'react-native';
 import OrderItemComponent from './OrderItemComponent';
 
 class ItemsTabComponent extends Component {

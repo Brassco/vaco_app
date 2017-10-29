@@ -10,7 +10,6 @@ class DetailsTabComponent extends Component {
 
    renderContent() {
         const {
-            flexDirection,
             headerContainerText,
             dateText,
             opacityText,
@@ -73,7 +72,7 @@ class DetailsTabComponent extends Component {
                                 />
                             </View>
                             <View>
-                                <Text> Name</Text>
+                                <Text> Игорь</Text>
                                 <Text> Online</Text>
                             </View>
                         </DetailsCard>
@@ -107,22 +106,18 @@ class DetailsTabComponent extends Component {
                                     {addressFrom}
                                 </Text>
                             </View>
-                        {/*</DetailsCard>*/}
                         {/*
                          Выгрузка
                          */}
-                        {/*<DetailsCard>*/}
                             <View>
                                 <Text style={opacityText}> Выгрузка</Text>
                                 <Text style={boldText}>
                                     {addressTo}
                                 </Text>
                             </View>
-                        {/*</DetailsCard>*/}
                         {/*
                          Сроки доставки
                          */}
-                        {/*<DetailsCard>*/}
                             <View>
                                 <Text style={[opacityText, redText]}> Сроки доставки</Text>
                                 <Text style={redText}>
