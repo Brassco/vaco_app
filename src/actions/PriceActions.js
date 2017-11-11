@@ -3,8 +3,6 @@ import {
     LOADING_PRICES,
     PRICES_LOADED_SUCCESS
 } from './types';
-import {Actions} from 'react-native-router-flux';
-import Querystring from 'querystring'
 
 export const loadingPrices = (userKey, assingmentId) => {
     console.log('loadingPrices');
@@ -21,9 +19,6 @@ export const loadingPrices = (userKey, assingmentId) => {
 }
 
 const onPricesLoaded = (dispatch, prices) => {
-    console.log('onPricesLoaded');
-    console.log(prices);
-
     dispatch({
         type: PRICES_LOADED_SUCCESS,
         payload: prices

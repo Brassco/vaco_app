@@ -61,7 +61,6 @@ class PriceTabComponent extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
         userKey: state.auth.user.access_token,
         selectedOrder: state.order.selectedOrder,
