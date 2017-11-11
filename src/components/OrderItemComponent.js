@@ -6,7 +6,7 @@ class OrderItemComponent extends Component {
 
    render() {
         const {item} =this.props;
-
+       const deviceWidth = (Dimensions.get('window').width);
         const {
             container,
             headerStyle,
@@ -16,7 +16,11 @@ class OrderItemComponent extends Component {
             headerText
         } = styles;
         return (
-            <View style={container}>
+            <View style={{
+                flexDirection: 'column',
+                width: deviceWidth,
+                paddingTop: 15
+            }}>
                 <DetailsCard style={{paddingLeft: 0, paddingRight: 0}}>
                     <View style={{
                         flex: 1,
@@ -47,12 +51,11 @@ class OrderItemComponent extends Component {
 
 }
 
-const deviceWidth = (Dimensions.get('window').width);
+
 
 const styles = {
     container: {
         flexDirection: 'column',
-        width: {deviceWidth},
         paddingTop: 15
     },
     headerStyle: {

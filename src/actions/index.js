@@ -39,10 +39,15 @@ export const loginUser = ({email, password}) => {
             type: LOGIN_USER
         })
 
+        // var data = Querystring.stringify({
+        //     "grant_type": "password",
+        //     "username": email,
+        //     "password": password
+        // });
         var data = Querystring.stringify({
             "grant_type": "password",
-            "username": email,
-            "password": password
+            "username": 'nariman.ospanov@kcell.kz',
+            "password": '9EO'
         });
         axios.post('http://vacowebapi.azurewebsites.net/token', data)
             .then(user => onLoginSuccess(dispatch, user.data))
@@ -57,13 +62,14 @@ export const loadingOrders = (user) => {
         dispatch({
             type: LOADING_ORDERS
         })
-        const key= "Bearer " + user.access_token;
-        const config = {'Authorization': key};
-        axios.get('http://vacowebapi.azurewebsites.net/api/Assignments', {headers: config})
-            .then((response) => onOrdersListLoaded(dispatch, response.data))
-            .catch((error) => {
-                console.log(error);
-            })
+        // const key= "Bearer " + user.access_token;
+        // const config = {'Authorization': key};
+        // axios.get('http://vacowebapi.azurewebsites.net/api/Assignments', {headers: config})
+        //     .then((response) => onOrdersListLoaded(dispatch, response.data))
+        //     .catch((error) => {
+        //         console.log(error);
+        //     })
+        onOrdersListLoaded(dispatch, orders)
     }
 }
 

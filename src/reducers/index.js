@@ -2,9 +2,11 @@ import {combineReducers} from 'redux';
 import AuthReducer from './AuthReducer';
 import OrderReducer from './OrderReducer';
 import OrdersReducer from './OrdersReducer';
+import PriceReducer from './PriceReducer';
 
 export default combineReducers({
     auth: AuthReducer,
     order: OrderReducer,
-    orders: OrdersReducer
+    orders: OrdersReducer,
+    prices: PriceReducer
 })
