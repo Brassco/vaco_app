@@ -11,8 +11,7 @@ class MessagesTabComponent extends React.Component {
 
     componentWillMount(){
         const {userKey, selectedOrder} = this.props;
-        console.log(selectedOrder);
-        this.props.loadingMessages(userKey, 4372);
+        this.props.loadingMessages(userKey, selectedOrder.Id);
     }
 
     renderPrices = () => {
@@ -28,59 +27,76 @@ class MessagesTabComponent extends React.Component {
 
         if (this.props.loading == false) {
 
+            if (this.props.messages.length > 0) {
             return (
                 <View style={{flex: 1}}>
-                    <MessageCard >
-                        <MessageCardItem>
-                            <View
-                                style={{
-                                    flex: 1
-                                }}
-                            >
-                                <Image
-                                    style={userImg}
-                                    source={require('./img/user.png')}
-                                />
-                            </View>
-                            <View
-                                style={{
-                                    flex: 3
-                                }}
-                            >
-                                <Text style={headerContainerText}>
-                                    Иван
-                                </Text>
-                            </View>
-                            <View style={{
-                                flex: 2
-                            }}
-                            >
-                                <Text style={dateText}>
-                                    11-11-17 14:18
-                                </Text>
-                            </View>
-                        </MessageCardItem>
-                        <MessageCardItem>
-                            <Text style={messageText}>
-                                Very long Message text to test vizualization of massege for Me))
-                            </Text>
-                        </MessageCardItem>
-                        <MessageCardItem>
-                            <View style={msgIconContainer}>
-                                <View style={{flexDirection: 'row', width: 40}}>
-                                    <Image
-                                        style={msgIcon}
-                                        source={require('./img/msg.png')}
-                                    />
-                                    <Text style={boldText}>
-                                        0
-                                    </Text>
-                                </View>
-                            </View>
-                        </MessageCardItem>
-                    </MessageCard>
+                    {
+                        this.props.messages.map((message) => {
+                            return (
+                                <MessageCard key={message.Id}>
+                                    <MessageCardItem>
+                                        <View
+                                            style={{
+                                                flex: 1
+                                            }}
+                                        >
+                                            <Image
+                                                style={userImg}
+                                                source={require('./img/user.png')}
+                                            />
+                                        </View>
+                                        <View
+                                            style={{
+                                                flex: 3
+                                            }}
+                                        >
+                                            <Text style={headerContainerText}>
+                                                Иван
+                                            </Text>
+                                        </View>
+                                        <View style={{
+                                            flex: 2
+                                        }}
+                                        >
+                                            <Text style={dateText}>
+                                                {
+                                                    message.DateTime
+                                                }
+                                            </Text>
+                                        </View>
+                                    </MessageCardItem>
+                                    <MessageCardItem>
+                                        <Text style={messageText}>
+                                            {message.Text}
+                                        </Text>
+                                    </MessageCardItem>
+                                    <MessageCardItem>
+                                        <View style={msgIconContainer}>
+                                            <View style={{flexDirection: 'row', width: 40}}>
+                                                <Image
+                                                    style={msgIcon}
+                                                    source={require('./img/msg.png')}
+                                                />
+                                                <Text style={boldText}>
+                                                    0
+                                                </Text>
+                                            </View>
+                                        </View>
+                                    </MessageCardItem>
+                                </MessageCard>
+                            )
+                        })
+                    }
                 </View>
-            )
+            ) } else {
+                return (
+                    <View style={{flex: 1}}>
+                        <Text>
+                            Здесь еще нет сообщений
+                        </Text>
+                    </View>
+                )
+            }
         } else {
             return (
                 <Spiner size="large" />
