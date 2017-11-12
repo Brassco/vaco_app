@@ -2,11 +2,9 @@ import axios from 'axios';
 import {
     MESSAGES_LOADED_SUCCESS
 } from './types';
-import {Actions} from 'react-native-router-flux';
-import Querystring from 'querystring'
 
 export const loadingMessages = (userKey, assingmentId) => {
-    console.log('loadingMessages');
+
     return (dispatch) => {
         const key = "Bearer " + userKey;
         const config = {'Authorization': key};

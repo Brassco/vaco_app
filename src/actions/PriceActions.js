@@ -5,7 +5,7 @@ import {
 } from './types';
 
 export const loadingPrices = (userKey, assingmentId) => {
-    console.log('loadingPrices');
+
     return (dispatch) => {
         const key = "Bearer " + userKey;
         const config = {'Authorization': key};
