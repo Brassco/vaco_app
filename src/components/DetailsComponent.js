@@ -60,7 +60,7 @@ class DetailsComponent extends Component {
         const headerText = 'Заказ №' + this.props.details.Id;
         return (
             <Card>
-                <Header headerText={headerText} backButton onPress={this.goBack}/>
+                <Header headerText={headerText} backButton onPress={this.goBack} rightButton/>
 
                 <Tabs
                     selected={this.state.page} style={tabbarView}

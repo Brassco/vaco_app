@@ -1,20 +1,67 @@
 import React from 'react';
-import { Text, View, Image} from "react-native";
+import {
+    Text,
+    View,
+    Image,
+    TouchableWithoutFeedback,
+    ListView
+} from "react-native";
 import {connect} from 'react-redux';
 import {loadingMessages} from '../actions/MessagesActions';
-import {Spiner, DetailsCard} from './common';
-import MessageCard from './parts/MessageCard';
-import MessageCardItem from './parts/MessageCardItem';
+import {Spiner, DetailsCard, Card, Header} from './common';
+import MessageItemComponent from './MessageItemComponent';
 
 
 class MessagesTabComponent extends React.Component {
 
+    /*componentWillMount(){
+        const {userKey, selectedOrder} = this.props;
+        this.props.loadingMessages(userKey, selectedOrder.Id);
+    }*/
+
     componentWillMount(){
         const {userKey, selectedOrder} = this.props;
         this.props.loadingMessages(userKey, selectedOrder.Id);
+        this.createDataSource(this.props);
     }
 
-    renderPrices = () => {
+    componentWillReceiveProps(nextProps) {
+        this.createDataSource(nextProps);
+    }
+
+    createDataSource({messages}) {
+        const ds = new ListView.DataSource({
+            rowHasChanged: (r1, r2) => r1 !== r2
+        })
+
+        const questions = [];
+
+        messages.map((msg) => {
+            if(msg.ResponseToQuestionId == null) {
+                questions.push(msg)
+            }
+        })
+
+        this.dataSource = ds.cloneWithRows(questions)
+    }
+
+    openQuestionScreen = (msg) => {
+        // this.props.selectMessage(msg)
+        console.log('openQuestionScreen', msg);
+        // Actions.askQuestion();
+    }
+
+    renderRow(message) {
+
+        return (
+            <MessageItemComponent
+                key={message.Id}
+                message={message}
+            />
+        )
+    }
+
+    /*renderPrices = () => {
         const {
             headerContainerText,
             dateText,
@@ -73,10 +120,12 @@ class MessagesTabComponent extends React.Component {
                                     <MessageCardItem>
                                         <View style={msgIconContainer}>
                                             <View style={{flexDirection: 'row', width: 40}}>
-                                                <Image
-                                                    style={msgIcon}
-                                                    source={require('./img/msg.png')}
-                                                />
+                                                <TouchableWithoutFeedback onPress={this.openQuestionScreen}>
+                                                    <Image
+                                                        style={msgIcon}
+                                                        source={require('./img/msg.png')}
+                                                    />
+                                                </TouchableWithoutFeedback>
                                                 <Text style={boldText}>
                                                     0
                                                 </Text>
@@ -102,10 +151,31 @@ class MessagesTabComponent extends React.Component {
                 <Spiner size="large" />
             )
         }
+    }*/
+
+    renderMessages = () => {
+        if (this.props.loading == false) {
+            return (
+                <ListView
+                    enableEmptySections={true}
+                    dataSource={this.dataSource}
+                    renderRow={this.renderRow.bind(this)} />
+            )
+        } else {
+            return (
+                <Spiner size="large" />
+            )
+        }
     }
 
     render() {
-        return this.renderPrices()
+        return (
+            <Card>
+                {
+                    this.renderMessages()
+                }
+            </Card>
+        )
     }
 }
 

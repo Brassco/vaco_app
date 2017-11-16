@@ -3,6 +3,8 @@ import {Router, Scene, Stack, Tabs} from 'react-native-router-flux';
 import LoginForm from './components/LoginForm';
 import ListComponent from './components/ListComponent';
 import DetailsComponent from './components/DetailsComponent';
+import QuestionComponent from './components/QuestionComponent';
+import BidPriceComponent from './components/BidPriceComponent';
 
 const RouterComponent = () => {
     return (
@@ -32,7 +34,18 @@ const RouterComponent = () => {
                         title="Details"
                         back
                         />
-
+                    <Scene
+                        key='askQuestion'
+                        component={QuestionComponent}
+                        title="QUestion"
+                        back
+                    />
+                    <Scene
+                        key='bidPrice'
+                        component={BidPriceComponent}
+                        title="Bid price"
+                        back
+                    />
                 </Scene>
             </Stack>
         </Router>

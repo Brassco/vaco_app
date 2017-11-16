@@ -1,16 +1,22 @@
 import React from 'react';
 import {Image, View, TouchableWithoutFeedback} from 'react-native';
+import {Actions} from 'react-native-router-flux';
 
-const BackButton = ({onPress}) => {
+const BidButton = () => {
     const {buttonStyle, textStyle} = style;
+
+    const goToBidPriceScreen = () => {
+        Actions.bidPrice();
+    }
+
     return (
-        <TouchableWithoutFeedback  style={buttonStyle} onPress={onPress}>
+        <TouchableWithoutFeedback  style={buttonStyle} onPress={goToBidPriceScreen}>
             <Image
                     style={{
                         width: 35,
                         height: 35
                     }}
-                    source={require('../img/left_arrov.png')}
+                    source={require('../img/humer.png')}
                 />
         </TouchableWithoutFeedback>
     )
@@ -31,4 +37,4 @@ const style = {
     }
 }
 
-export {BackButton};
+export default BidButton;

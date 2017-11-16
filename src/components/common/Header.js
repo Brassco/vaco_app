@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import {BackButton} from '../common';
+import BidButton from '../parts/BidButton';
 import {Actions} from 'react-native-router-flux';
 
 const Header = (props) => {
@@ -10,6 +11,13 @@ const Header = (props) => {
         if (props.backButton) {
             return (
                 <BackButton onPress={() => props.onPress()}/>
+            )
+        }
+    }
+    const renderRightButton = () => {
+        if (props.rightButton) {
+            return (
+                <BidButton/>
             )
         }
     }
@@ -24,11 +32,18 @@ const Header = (props) => {
                 }
             </View>
             <View style={{
-                flex: 18,
+                flex: 16,
                 justifyContent: 'center',
                 alignItems: 'center'
             }}>
                 <Text style = {textStyle}> {props.headerText}</Text>
+            </View>
+            <View style={{
+                flex: 2,
+            }}>
+                {
+                    renderRightButton()
+                }
             </View>
         </View>
     )
