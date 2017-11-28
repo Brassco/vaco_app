@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {View, Image, Text, TouchableWithoutFeedback} from 'react-native';
 import {connect} from 'react-redux';
-import MessageCard from './parts/MessageCard';
-import MessageCardItem from './parts/MessageCardItem';
-import {selectMessage} from '../actions/MessagesActions';
+import MessageCard from '../parts/MessageCard';
+import MessageCardItem from '../parts/MessageCardItem';
+import {selectMessage} from '../../actions/MessagesActions';
 import {Actions} from 'react-native-router-flux';
 
 class MessageItemComponent extends Component {
@@ -35,7 +35,7 @@ class MessageItemComponent extends Component {
                     >
                         <Image
                             style={userImg}
-                            source={require('./img/user.png')}
+                            source={require('../img/user.png')}
                         />
                     </View>
                     <View
@@ -69,7 +69,7 @@ class MessageItemComponent extends Component {
                             <TouchableWithoutFeedback onPress={() => this.openQuestionScreen(message)}>
                                 <Image
                                     style={msgIcon}
-                                    source={require('./img/msg.png')}
+                                    source={require('../img/msg.png')}
                                 />
                             </TouchableWithoutFeedback>
                             <Text style={boldText}>

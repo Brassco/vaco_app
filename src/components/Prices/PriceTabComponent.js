@@ -1,8 +1,8 @@
 import React from 'react';
 import { Text, View, Image} from "react-native";
 import {connect} from 'react-redux';
-import {loadingPrices} from '../actions/PriceActions';
-import {DetailsCard, Spiner, CardItem} from './common';
+import {loadingPrices} from '../../actions/PriceActions';
+import {DetailsCard, Spiner, CardItem} from '../common';
 
 class PriceTabComponent extends React.Component {
     componentWillMount(){
@@ -34,7 +34,7 @@ class PriceTabComponent extends React.Component {
                                     <View style={{ flex: 1}}>
                                         <Image
                                             style={userImg}
-                                            source={require('./img/user.png')}
+                                            source={require('../img/user.png')}
                                         />
                                     </View>
                                     <View style={{
@@ -55,7 +55,7 @@ class PriceTabComponent extends React.Component {
                                         }}>
                                             <Image
                                                 style={msgIcon}
-                                                source={require('./img/msg.png')}
+                                                source={require('../img/msg.png')}
                                             />
                                             <Text style={boldText}>
                                                 0

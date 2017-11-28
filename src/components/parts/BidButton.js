@@ -16,7 +16,7 @@ const BidButton = () => {
                         width: 35,
                         height: 35
                     }}
-                    source={require('../img/humer.png')}
+                    source={require('../img/humer_blue.png')}
                 />
         </TouchableWithoutFeedback>
     )
@@ -32,6 +32,7 @@ const style = {
         paddingBottom: 10
     },
     buttonStyle: {
+        paddingRight: 5,
         alignItems: 'center',
         justifyContent: 'center'
     }

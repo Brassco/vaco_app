@@ -62,14 +62,14 @@ export const loadingOrders = (user) => {
         dispatch({
             type: LOADING_ORDERS
         })
-        // const key= "Bearer " + user.access_token;
-        // const config = {'Authorization': key};
-        // axios.get('http://vacowebapi.azurewebsites.net/api/Assignments', {headers: config})
-        //     .then((response) => onOrdersListLoaded(dispatch, response.data))
-        //     .catch((error) => {
-        //         console.log(error);
-        //     })
-        onOrdersListLoaded(dispatch, orders)
+        const key= "Bearer " + user.access_token;
+        const config = {'Authorization': key};
+        axios.get('http://vacowebapi.azurewebsites.net/api/Assignments', {headers: config})
+            .then((response) => onOrdersListLoaded(dispatch, response.data))
+            .catch((error) => {
+                console.log(error);
+            })
+        // onOrdersListLoaded(dispatch, orders)
     }
 }
 
@@ -107,9 +107,22 @@ export const backToList = () => {
 }
 
 const onLoginSuccess = (dispatch, user) => {
+
+    const key = "Bearer " + user.access_token;
+    const config = {'Authorization': key};
+    const url = 'http://vacowebapi.azurewebsites.net/api/Account/UserInfo';
+    axios.get(url, {headers: config})
+        .then(info => onUserInfoLoaded(dispatch, user, info.data))
+        .catch((error) => {
+            console.log(error);
+        })
+}
+
+const onUserInfoLoaded = (dispatch, user, info) => {
+    const userInfo = {...user, info: info}
     dispatch({
         type: LOGIN_USER_SUCCESS,
-        payload: user
+        payload: userInfo
     })
     Actions.list();
 }

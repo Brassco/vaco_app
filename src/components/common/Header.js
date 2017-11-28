@@ -57,7 +57,7 @@ const style = {
     },
     viewStyle: {
         flexDirection: 'row',
-        backgroundColor: '#579fff',
+        backgroundColor: '#73ADEA',
 
         height: 50,
         paddingTop: 5,

@@ -1,14 +1,20 @@
 import axios from 'axios';
 import {
+    LOADING_MESSAGES,
     MESSAGES_LOADED_SUCCESS,
     MESSAGES_SENDED_SUCCESS,
     MESSAGE_CHANGE,
-    SELECT_MESSAGE
+    SELECT_MESSAGE,
+    SET_MESSAGES_FOR_QUESTION,
+    CLEAR_MESSAGES_FOR_QUESTION
 } from './types';
+import Querystring from 'querystring';
+import {Actions} from 'react-native-router-flux';
 
 export const loadingMessages = (userKey, assingmentId) => {
 
     return (dispatch) => {
+        startLoadingMessages(dispatch);
         const key = "Bearer " + userKey;
         const config = {'Authorization': key};
         const url = 'http://vacowebapi.azurewebsites.net/api/Assignments/GetQnAByAssignmentId?id=' + assingmentId;
@@ -20,28 +26,19 @@ export const loadingMessages = (userKey, assingmentId) => {
     }
 }
 
-export const sendMessage = (msgObj) => {
+export const sendMessage = (userKey, msgObj) => {
     return (dispatch) => {
-        // const key = "Bearer " + userKey;
-        // const config = {'Authorization': key};
-        // const url = 'http://vacowebapi.azurewebsites.net/api/Assignments/SendApplication';
-        // axios.get(url, {headers: config})
-        //     .then(order => onMessagesSended(dispatch, order.data))
-        //     .catch((error) => {
-        //         console.log(error);
-        //     })
 
-        var data = Querystring.stringify({
-            "AuthorId": msgObj.authorId,
-            "AssignmentId": msgObj.assingmentId,
-            "Text": msgObj.text,
-            "DateTime": msgObj.dateTime,
-            "ResponseToQuestionId": msgObj.responseToQuestionId
-        });
-        axios.post('http://vacowebapi.azurewebsites.net/token', data)
-            .then(user => onMessagesSended(dispatch, user.data))
+        var data = Querystring.stringify(msgObj);
+
+        const key = "Bearer "+userKey;
+        const config = {'Authorization': key};
+
+        axios.post('http://vacowebapi.azurewebsites.net/api/Assignments/SendQnA', data, {headers: config})
+            .then(response => onMessagesSended(dispatch, response.data))
             .catch((error) => {
-                onLoginFail(dispatch)
+            console.log(error);
+                // onSendingFail(dispatch, error)
             })
     }
 }
@@ -60,6 +57,25 @@ export const onChangeMsg = (msg) => {
     }
 }
 
+export const clearMessagesForQuestion = () => {
+    return {
+        type: CLEAR_MESSAGES_FOR_QUESTION
+    }
+}
+
+export const setMessagesForQuestion = (msgs) => {
+    return {
+        type: SET_MESSAGES_FOR_QUESTION,
+        payload: msgs
+    }
+}
+
+const startLoadingMessages = (dispatch) => {
+    dispatch({
+        type: LOADING_MESSAGES
+    })
+}
+
 const onMessagesLoaded = (dispatch, messages) => {
     dispatch({
         type: MESSAGES_LOADED_SUCCESS,
@@ -67,9 +83,10 @@ const onMessagesLoaded = (dispatch, messages) => {
     })
 }
 
-const onMessagesSended = (dispatch, res) => {
+const onMessagesSended = (dispatch, response) => {
+
+    Actions.pop();
     dispatch({
-        type: MESSAGES_SENDED_SUCCESS,
-        payload: messages
+        type: MESSAGES_SENDED_SUCCESS
     })
 }

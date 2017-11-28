@@ -3,8 +3,8 @@ import {Router, Scene, Stack, Tabs} from 'react-native-router-flux';
 import LoginForm from './components/LoginForm';
 import ListComponent from './components/ListComponent';
 import DetailsComponent from './components/DetailsComponent';
-import QuestionComponent from './components/QuestionComponent';
-import BidPriceComponent from './components/BidPriceComponent';
+import QuestionComponent from './components/Messages/QuestionComponent';
+import BidPriceComponent from './components/Prices/BidPriceComponent';
 
 const RouterComponent = () => {
     return (

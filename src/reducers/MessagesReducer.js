@@ -3,14 +3,17 @@ import {
     MESSAGES_LOADED_SUCCESS,
     MESSAGES_SENDED_SUCCESS,
     MESSAGE_CHANGE,
-    SELECT_MESSAGE
+    SELECT_MESSAGE,
+    SET_MESSAGES_FOR_QUESTION,
+    CLEAR_MESSAGES_FOR_QUESTION
 } from '../actions/types';
 
 const INITIAL_STATE = {
     messages: [],
     msg: '',
     selectedMsg: null,
-    loading: true
+    loading: true,
+    messagesForQuestion: []
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -18,14 +21,17 @@ export default (state = INITIAL_STATE, action) => {
         case LOADING_MESSAGES:
             return {...state, loading: true}
         case MESSAGES_LOADED_SUCCESS:
-            return {...state, messages: action.payload, loading: false}
+            return {...state, messages: action.payload, loading: false, messagesForQuestion: []}
         case MESSAGE_CHANGE:
-            console.log('MESSAGE_CHANGE', action.payload)
             return {...state, msg: action.payload};
         case MESSAGES_SENDED_SUCCESS:
-            return {...state, loading: false}
+            return {...state, loading: false, msg: ''}
         case SELECT_MESSAGE:
             return {...state, loading: false, selectedMsg: action.payload}
+        case SET_MESSAGES_FOR_QUESTION:
+            return {...state, messagesForQuestion: action.payload}
+        case CLEAR_MESSAGES_FOR_QUESTION:
+            return {...state, messagesForQuestion: []}
         default:
             return state
     }

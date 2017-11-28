@@ -4,6 +4,7 @@ import {
     PRICES_LOADED_SUCCESS,
     PRICE_MSG_CHANGE,
     PRICE_VALUE_CHANGE,
+    PRICE_SENDING_START,
     PRICE_MESSAGE_SENDED_SUCCESS
 } from './types';
 import Querystring from 'querystring';
@@ -24,16 +25,20 @@ export const loadingPrices = (userKey, assingmentId) => {
 }
 
 export const sendMessage = (userKey, msgObj) => {
-    var data = Querystring.stringify({
-        "ExecutorId": msgObj.executorId,
-        "AssignmentId": msgObj.assignmentId,
-        "Text": msgObj.text,
-        "ProposedPrice": msgObj.proposedPrice
-    });
+    var data = JSON.stringify(msgObj);
 
-    const key = "Bearer i-2YXXcwe25hbYnz2NFrJZQ7CO1gdlqyKa1sLjWaQnTBh7H1lz2yI7eeHax3jN1ET2E4-9OrPF8tFudTLTy4JobBP6Oa63abXodBWe1dA8LZO069c7qJaw6Knzti_PEuYkqkGu8QjoFLCTAP8vfm2OzYWGestEIApqfnbhASZFSVWrCGh5-6-ACndbScITd2-4JNYJTwbESWnhhbe5V511-JfR60CEloW3Sr8a1-0DkzdtX42woMCBoTwknZKfIsRS0Tx96A7biJx1xSdpKu6kCYZC11Q9SvEJC62FjmcNDSPdbnQx7js5J5cnCw95KTXRT-uTveU8W3uJceqAPRfAFNcB5snq1dwInLhx-D8SDxog4Y6R6H6aQ0C2pwV9wwBOxUrBht8fOv0eaMpRuDiSbiu68_r_hPyJRiJjkw6GQxjlKidEQyoyVvdHnrvGNSs0aRwSGpc0pYrq8JJ81grs55cagQKLNee1xr0MFHSyzEl8p4N-ARSOfz3XpTZoU8h2y_q12Az17bo2yIbloVNrtRhQiZ5p8e9R4vALhuJow";
-    const config = {'Authorization': key};
+    const key = "Bearer "+userKey;
+    const config = {
+        'Content-Type': 'application/json',
+        'Authorization': key
+    };
+
+    console.log(userKey, msgObj, data);
+
     return (dispatch) => {
+        dispatch({
+            type: PRICE_SENDING_START
+        })
     axios.post('http://vacowebapi.azurewebsites.net/api/Assignments/SendApplication', data, {headers: config})
         .then(user => onMessagesSended(dispatch, user.data))
         .catch((error) => {
@@ -59,7 +64,7 @@ export const changePrice = (price) => {
 export const setCountry = () => {}
 
 const onSendingFail = (dispatch, error) => {
-    console.log(error);
+    console.log('price fail', error);
     dispatch({
         type: PRICE_SENDING_FAIL
     })
@@ -73,6 +78,9 @@ const onPricesLoaded = (dispatch, prices) => {
 }
 
 const onMessagesSended = (dispatch, res) => {
-    
+console.log('price sended');
+    dispatch({
+        type: PRICE_MESSAGE_SENDED_SUCCESS
+    })
     Actions.pop();
 }

@@ -22,6 +22,7 @@ export default (state = INITIAL_STATE, action) => {
         case LOGIN_USER:
             return {...state, loading: true, error: ''};
         case LOGIN_USER_SUCCESS:
+console.log(action.payload);
             return {...state, user: action.payload, error: '', loading: false};
         case LOGIN_USER_FAIL:
             return {...state, password: '', error: 'Ошибка авторизации', loading: false};

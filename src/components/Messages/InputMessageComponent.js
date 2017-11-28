@@ -6,7 +6,7 @@ class InputMessageComponent extends Component {
         const {width} = Dimensions.get('window');
         const {container, imageStyle} = styles;
         return (
-            <View style={container}>
+            <View style={[container, {width: width}]}>
                 <View style={{
                     margin: 2,
                     flex: 17
@@ -29,7 +29,7 @@ class InputMessageComponent extends Component {
                     <TouchableWithoutFeedback onPress={this.props.sendMessage}>
                         <Image
                             style={imageStyle}
-                            source={require('./img/send_msg.png')}
+                            source={require('../img/send_msg.png')}
                         />
                     </TouchableWithoutFeedback>
                 </View>

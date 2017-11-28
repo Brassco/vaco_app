@@ -7,8 +7,8 @@ import {openDetails, loadingDetails, backToList} from '../actions';
 import {Card, Header,CardItem, Spiner} from './common';
 import DetailsTabComponent from './DetailsTabComponent';
 import ItemsTabComponent from './ItemsTabComponent';
-import PriceTabComponent from './PriceTabComponent';
-import MessagesTabComponent from './MessagesTabComponent';
+import PriceTabComponent from './Prices/PriceTabComponent';
+import MessagesTabComponent from './Messages/MessagesTabComponent';
 
 
 class DetailsComponent extends Component {
@@ -60,7 +60,11 @@ class DetailsComponent extends Component {
         const headerText = 'Заказ №' + this.props.details.Id;
         return (
             <Card>
-                <Header headerText={headerText} backButton onPress={this.goBack} rightButton/>
+                <Header headerText={headerText}
+                        backButton
+                        onPress={this.goBack}
+                        rightButton={this.props.details.AllowExecutorSetPrice}
+                />
 
                 <Tabs
                     selected={this.state.page} style={tabbarView}
@@ -117,7 +121,7 @@ const styles = {
         left:0,
         height:40,
         opacity:1,
-        backgroundColor:'#579fff',
+        backgroundColor:'#73ADEA',
         justifyContent: 'center',
         alignItems: 'center'
     },
