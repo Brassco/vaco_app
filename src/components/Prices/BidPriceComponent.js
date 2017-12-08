@@ -57,7 +57,7 @@ class QuestionComponent extends Component {
             const {height, width} = Dimensions.get('window');
             const {borderRound, priceContainer, containerHeight} = styles;
             return (
-                <View >
+                <Card >
                     <Header headerText={'Заявка'} backButton onPress={this.goBack}/>
                     <View style={{
                         flex: 1
@@ -123,7 +123,7 @@ class QuestionComponent extends Component {
                     <ErrorText>
                         {this.props.error}
                     </ErrorText>
-                </View>
+                </Card>
             )
         }
         return (

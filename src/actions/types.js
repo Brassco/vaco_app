@@ -8,6 +8,7 @@ export const LOADING_DETAILS = 'loading_details';
 export const DETAILS_LOADED_SUCCESS = 'details_loaded_success';
 export const ORDERS_LOADED_SUCCESS = 'orders_loaded_success';
 export const BACK_TO_LIST = 'back_to_list';
+export const SET_SELECTED_PAGE = 'set_selected_page';
 
 export const LOADING_PRICES = 'loading_prices';
 export const PRICES_LOADED_SUCCESS = 'prices_loaded_success';
