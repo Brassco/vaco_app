@@ -3,7 +3,7 @@ import {Text } from 'react-native';
 import {connect} from 'react-redux';
 import Tabs from 'react-native-tabs';
 import {Actions} from 'react-native-router-flux';
-import {openDetails, loadingDetails, backToList} from '../actions';
+import {openDetails, loadingDetails, backToList, setSelectedPage} from '../actions';
 import {Card, Header,CardItem, Spiner} from './common';
 import DetailsTabComponent from './DetailsTabComponent';
 import ItemsTabComponent from './ItemsTabComponent';
@@ -21,8 +21,9 @@ class DetailsComponent extends Component {
     }
 
     renderTabs() {
+        console.log(this.props.selectedPage);
         const {Item} = this.props.details;
-        switch (this.state.page) {
+        switch (this.props.selectedPage) {
             case '1':
                 return (
                     <DetailsTabComponent
@@ -42,7 +43,19 @@ class DetailsComponent extends Component {
                 return (
                     <MessagesTabComponent item={Item}/>
                 )
+            default:
+                return (
+                    <DetailsTabComponent
+                        details={this.props.details}
+                        orderHeader={this.props.selectedOrder.Header}
+                    />
+                )
         }
+    }
+
+    selectTab = (id) => {
+        console.log('selecteTab', id);
+        this.props.setSelectedPage(id);
     }
 
     goBack = () => {
@@ -67,8 +80,10 @@ class DetailsComponent extends Component {
                 />
 
                 <Tabs
-                    selected={this.state.page} style={tabbarView}
-                    selectedStyle={{color:'#909087'}} onSelect={el=>this.setState({page:el.props.name})}
+                    selected={this.props.selectedPage}
+                    style={tabbarView}
+                    selectedStyle={{color:'#909087'}}
+                    onSelect={el=>this.selectTab(el.props.name)}
                 >
                     <Text name="1"
                           selectedIconStyle={{borderBottomWidth:2,borderBottomColor:'#909087'}}
@@ -137,9 +152,10 @@ const mapStateToProps = (state) => {
     return {
         userKey: state.auth.user.access_token,
         selectedOrder: state.order.selectedOrder,
+        selectedPage: state.order.selectedPage,
         details: state.order.details,
         loading: state.order.loading
     }
 }
 
-export default connect(mapStateToProps,{openDetails, loadingDetails, backToList})(DetailsComponent);
+export default connect(mapStateToProps,{openDetails, loadingDetails, backToList, setSelectedPage})(DetailsComponent);

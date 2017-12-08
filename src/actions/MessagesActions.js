@@ -15,27 +15,20 @@ export const loadingMessages = (userKey, assingmentId) => {
 
     return (dispatch) => {
         startLoadingMessages(dispatch);
-        const key = "Bearer " + userKey;
-        const config = {'Authorization': key};
-        const url = 'http://vacowebapi.azurewebsites.net/api/Assignments/GetQnAByAssignmentId?id=' + assingmentId;
-        axios.get(url, {headers: config})
-            .then(order => onMessagesLoaded(dispatch, order.data))
-            .catch((error) => {
-                console.log(error);
-            })
+        getMessages(dispatch, userKey, assingmentId)
     }
 }
 
-export const sendMessage = (userKey, msgObj) => {
+export const sendMessage = (user, msgObj, assignedId) => {
     return (dispatch) => {
 
         var data = Querystring.stringify(msgObj);
 
-        const key = "Bearer "+userKey;
+        const key = "Bearer "+user.access_token;
         const config = {'Authorization': key};
 
         axios.post('http://vacowebapi.azurewebsites.net/api/Assignments/SendQnA', data, {headers: config})
-            .then(response => onMessagesSended(dispatch, response.data))
+            .then(response => onMessagesSended(dispatch, user, assignedId))
             .catch((error) => {
             console.log(error);
                 // onSendingFail(dispatch, error)
@@ -83,10 +76,18 @@ const onMessagesLoaded = (dispatch, messages) => {
     })
 }
 
-const onMessagesSended = (dispatch, response) => {
+const onMessagesSended = (dispatch, user, assignedId) => {
+    getMessages(dispatch, user.access_token, assignedId);
+}
 
-    Actions.pop();
-    dispatch({
-        type: MESSAGES_SENDED_SUCCESS
-    })
+const getMessages = (dispatch, userKey, assingmentId) => {
+
+    const key = "Bearer " + userKey;
+    const config = {'Authorization': key};
+    const url = 'http://vacowebapi.azurewebsites.net/api/Assignments/GetQnAByAssignmentId?id=' + assingmentId;
+    axios.get(url, {headers: config})
+        .then(order => onMessagesLoaded(dispatch, order.data))
+        .catch((error) => {
+            console.log(error);
+        })
 }
