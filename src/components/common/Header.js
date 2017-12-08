@@ -62,8 +62,8 @@ const style = {
         height: 50,
         paddingTop: 5,
         shadowColor: '#000',
-        shadowOffset: {width:5, height: 25},
-        shadowOpacity: 0.9
+        shadowOffset: {width:5, height: 5},
+        shadowOpacity: 0.5
     }
 }
 
