@@ -10,7 +10,8 @@ import {
     LOADING_DETAILS,
     DETAILS_LOADED_SUCCESS,
     ORDERS_LOADED_SUCCESS,
-    BACK_TO_LIST
+    BACK_TO_LIST,
+    SET_SELECTED_PAGE
 } from './types';
 import {Actions} from 'react-native-router-flux';
 import Querystring from 'querystring'
@@ -39,16 +40,16 @@ export const loginUser = ({email, password}) => {
             type: LOGIN_USER
         })
 
-        // var data = Querystring.stringify({
-        //     "grant_type": "password",
-        //     "username": email,
-        //     "password": password
-        // });
         var data = Querystring.stringify({
             "grant_type": "password",
-            "username": 'nariman.ospanov@kcell.kz',
-            "password": '9EO'
+            "username": email,
+            "password": password
         });
+        // var data = Querystring.stringify({
+        //     "grant_type": "password",
+        //     "username": 'nariman.ospanov@kcell.kz',
+        //     "password": '9EO'
+        // });
         axios.post('http://vacowebapi.azurewebsites.net/token', data)
             .then(user => onLoginSuccess(dispatch, user.data))
             .catch((error) => {
@@ -95,6 +96,15 @@ export const loadingDetails = (userKey, orderId) => {
                 console.log(error);
             })
 
+    }
+}
+
+export const setSelectedPage = (selectedPage) => {
+    return (dispatch) => {
+        dispatch({
+            type: SET_SELECTED_PAGE,
+            payload: selectedPage
+        })
     }
 }
 

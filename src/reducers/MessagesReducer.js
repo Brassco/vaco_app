@@ -7,6 +7,7 @@ import {
     SET_MESSAGES_FOR_QUESTION,
     CLEAR_MESSAGES_FOR_QUESTION
 } from '../actions/types';
+import axios from 'axios';
 
 const INITIAL_STATE = {
     messages: [],
@@ -21,7 +22,7 @@ export default (state = INITIAL_STATE, action) => {
         case LOADING_MESSAGES:
             return {...state, loading: true}
         case MESSAGES_LOADED_SUCCESS:
-            return {...state, messages: action.payload, loading: false, messagesForQuestion: []}
+            return {...state, msg: '', messages: action.payload, loading: false, messagesForQuestion: []}
         case MESSAGE_CHANGE:
             return {...state, msg: action.payload};
         case MESSAGES_SENDED_SUCCESS:

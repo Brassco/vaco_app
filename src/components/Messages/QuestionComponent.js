@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {
     Text,
     View,
-    TextInput,
+    ListView,
     Dimensions,
     Image,
     TouchableWithoutFeedback
@@ -13,7 +13,8 @@ import {
     sendMessage,
     onChangeMsg,
     setMessagesForQuestion,
-    clearMessagesForQuestion
+    clearMessagesForQuestion,
+    loadingMessages
 } from '../../actions/MessagesActions';
 import ChatItem from './ChatItem';
 import {Card, Header,CardItem, Spiner} from '../common';
@@ -23,14 +24,25 @@ import moment from 'moment';
 
 class QuestionComponent extends Component {
 
-
     componentWillMount() {
+        this.createDataSource(this.props);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.createDataSource(nextProps);
+    }
+
+    createDataSource({messages}) {
+        const ds = new ListView.DataSource({
+            rowHasChanged: (r1, r2) => r1 !== r2
+        })
+
         const messagesArray = [];
         messagesArray.push(this.props.selectedMsg);
 
-        const allMessages = this.getMsgs(messagesArray, this.props.selectedMsg.Id);
+        const allMessages = this.getMsgs(messagesArray, this.props.selectedMsg.Id, messages);
 
-        this.props.setMessagesForQuestion(allMessages);
+        this.dataSource = ds.cloneWithRows(allMessages)
     }
 
     goBack = () => {
@@ -47,7 +59,7 @@ class QuestionComponent extends Component {
             ResponseToQuestionId: this.props.selectedMsg.Id
         }
         if (this.props.msg != '') {
-            this.props.sendMessage(this.props.user.access_token, msgObj);
+            this.props.sendMessage(this.props.user, msgObj, this.props.selectedOrder.Id);
         }
     }
 
@@ -55,40 +67,75 @@ class QuestionComponent extends Component {
         this.props.onChangeMsg(msg);
     }
 
-    getMsgs = (messages, msgId) => {
-        this.props.messages.map((msg) => {
-            if (msg.ResponseToQuestionId == msgId) {
-                messages.push(msg)
-                this.getMsgs(messages,msg.Id)
-            }
-        })
-        return messages;
+    getMsgs = (messagesArray, msgId, messages) => {
+
+        if (messages) {
+            messages.map((msg) => {
+                if (msg.ResponseToQuestionId == msgId) {
+                    messagesArray.push(msg)
+                    this.getMsgs(messagesArray,msg.Id)
+                }
+            })
+        }
+        return messagesArray;
     }
 
-    renderContent = () => {
-        if (this.props.messagesForQuestion.length >= 1) {
+    // renderContent = () => {
+    //     if (this.props.messagesForQuestion.length >= 1) {
+    //
+    //         return (
+    //             this.props.messagesForQuestion.map( (msg)=> {
+    //                 return (
+    //                     <ChatItem style={{
+    //                         justifyContent: 'flex-start'
+    //                     }}
+    //                     key={msg.Id}
+    //                     role={msg.AuthorId == this.props.selectedMsg.AuthorId ? 'Перевозчик' : 'Грузовладелец'}
+    //                     date={msg.DateTime}
+    //                     >
+    //                     {
+    //                         msg.Text
+    //                     }
+    //                     </ChatItem>
+    //                 )
+    //            })
+    //         )
+    //     } else {
+    //        return(
+    //            <Spiner size="large"/>
+    //        )
+    //     }
+    // }
 
+    renderRow(msg) {
+
+        return (
+            <ChatItem style={{
+                        justifyContent: 'flex-start'
+                    }}
+            key={msg.Id}
+            role={msg.AuthorId == this.props.selectedMsg.AuthorId ? 'Перевозчик' : 'Грузовладелец'}
+            date={msg.DateTime}
+            >
+            {
+                msg.Text
+            }
+            </ChatItem>
+        )
+    }
+
+    renderMessages = () => {
+        if (this.props.loading == false) {
             return (
-                this.props.messagesForQuestion.map( (msg)=> {
-                    return (
-                        <ChatItem style={{
-                            justifyContent: 'flex-start'
-                        }}
-                        key={msg.Id}
-                        role={msg.AuthorId == this.props.selectedMsg.AuthorId ? 'Перевозчик' : 'Грузовладелец'}
-                        date={msg.DateTime}
-                        >
-                        {
-                            msg.Text
-                        }
-                        </ChatItem>
-                    )
-               })
+                <ListView
+                    enableEmptySections={true}
+                    dataSource={this.dataSource}
+                    renderRow={this.renderRow.bind(this)} />
             )
         } else {
-           return(
-               <Spiner size="large"/>
-           )
+            return (
+                <Spiner size="large" />
+            )
         }
     }
 
@@ -96,26 +143,22 @@ class QuestionComponent extends Component {
         const {height, width} = Dimensions.get('window');
         const {msgContainer} = styles;
         return (
-            <View style={{
-                flex: 1,
-                flexDirection: 'column',
-                justifyContent: 'space-between'
-            }}>
+            <Card>
                 <Header headerText={'Question'} backButton onPress={this.goBack}/>
                 <View style={[msgContainer, {
                     width: width,
                     height: height - 130
                 }]}>
-                {
-                    this.renderContent()
-                }
+                    {
+                        this.renderMessages()
+                    }
                 </View>
                 <InputMessageComponent
                     onChangeText={this.onChangeMessage}
                     sendMessage={this.sendMessage}
                     value={this.props.msg}
                 />
-            </View>
+            </Card>
         )
     }
 }
@@ -148,5 +191,6 @@ export default connect(mapStateToProps, {
     sendMessage,
     onChangeMsg,
     setMessagesForQuestion,
-    clearMessagesForQuestion
+    clearMessagesForQuestion,
+    loadingMessages
 })(QuestionComponent);

@@ -16,11 +16,6 @@ import moment from 'moment';
 
 class MessagesTabComponent extends React.Component {
 
-    /*componentWillMount(){
-        const {userKey, selectedOrder} = this.props;
-        this.props.loadingMessages(userKey, selectedOrder.Id);
-    }*/
-
     componentWillMount(){
         const {user, selectedOrder} = this.props;
         this.props.loadingMessages(user.access_token, selectedOrder.Id);
@@ -28,6 +23,7 @@ class MessagesTabComponent extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+
         this.createDataSource(nextProps);
     }
 
@@ -54,7 +50,6 @@ class MessagesTabComponent extends React.Component {
     }
 
     onChangeMessage = (msg) => {
-        console.log(msg)
         this.props.onChangeMsg(msg);
     }
 
@@ -65,7 +60,7 @@ class MessagesTabComponent extends React.Component {
             text: this.props.msg,
             dateTime: moment().format()
         }
-        this.props.sendMessage(this.props.user.access_token, msgObj);
+        this.props.sendMessage(this.props.user, msgObj, this.props.selectedOrder.Id);
     }
 
     renderRow(message) {
@@ -116,50 +111,6 @@ class MessagesTabComponent extends React.Component {
             </View>
 
         )
-    }
-}
-
-const styles = {
-    containerStyle: {
-        flexDirection: 'column'
-    },
-    headerContainerStyle: {
-        flex: 10,
-        flexDirection: 'row'
-    },
-    headerContainerText: {
-        fontSize: 18,
-        fontWeight: '500',
-        color: '#579fff'
-    },
-    dateText: {
-        fontSize: 15,
-        fontWeight: '400',
-        color: '#bcbcb3'
-    },
-    messageText: {
-        fontSize: 17,
-        fontWeight: '500',
-        color: '#6a6a6a'
-    },
-    boldText: {
-        fontSize: 17,
-        fontWeight: '400',
-        color: '#1d1d1d'
-    },
-    msgIconContainer: {
-        flexDirection: 'row',
-        flex: 1,
-        justifyContent: 'flex-end',
-        alignItems: 'center'
-    },
-    msgIcon: {
-        width: 25,
-        height: 25,
-    },
-    userImg: {
-        width: 30,
-        height: 30,
     }
 }
 
