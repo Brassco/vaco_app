@@ -3,6 +3,7 @@ import {
     PASSWORD_CHANGE,
     LOGIN_USER_SUCCESS,
     LOGIN_USER_FAIL,
+    SET_LOCATION_TIME,
     LOGIN_USER} from '../actions/types';
 
 const INITIAL_STATE = {
@@ -10,7 +11,8 @@ const INITIAL_STATE = {
     password: '',
     user: null,
     error: '',
-    loading: false
+    loading: false,
+    locationCheckoutTime: 0
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -22,10 +24,11 @@ export default (state = INITIAL_STATE, action) => {
         case LOGIN_USER:
             return {...state, loading: true, error: ''};
         case LOGIN_USER_SUCCESS:
-console.log(action.payload);
             return {...state, user: action.payload, error: '', loading: false};
         case LOGIN_USER_FAIL:
             return {...state, password: '', error: 'Ошибка авторизации', loading: false};
+        case SET_LOCATION_TIME:
+            return {...state, locationCheckoutTime: action.payload}
         default: return state;
     }
 }

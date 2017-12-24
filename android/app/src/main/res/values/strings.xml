@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">vaco_app</string>
+    <string name="account_type">com.vaco.vaco</string>
+    <string name="content_authority">com.vaco.vaco</string>
 </resources>

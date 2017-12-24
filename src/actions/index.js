@@ -11,7 +11,8 @@ import {
     DETAILS_LOADED_SUCCESS,
     ORDERS_LOADED_SUCCESS,
     BACK_TO_LIST,
-    SET_SELECTED_PAGE
+    SET_SELECTED_PAGE,
+    SET_LOCATION_TIME
 } from './types';
 import {Actions} from 'react-native-router-flux';
 import Querystring from 'querystring'
@@ -53,6 +54,7 @@ export const loginUser = ({email, password}) => {
         axios.post('http://vacowebapi.azurewebsites.net/token', data)
             .then(user => onLoginSuccess(dispatch, user.data))
             .catch((error) => {
+            console.log(error);
                 onLoginFail(dispatch)
             })
     }
@@ -155,5 +157,33 @@ const onOrdersListLoaded = (dispatch, orders) => {
     dispatch({
         type: ORDERS_LOADED_SUCCESS,
         payload: orders
+    })
+}
+
+export const sendLocation = (user, coordsObj, timestamp) => {
+    return (dispatch) => {
+        var data = Querystring.stringify(coordsObj);
+        if (user) {
+            const key = "Bearer "+user.access_token;
+            const config = {'Authorization': key};
+            axios.post('http://vacowebapi.azurewebsites.net/api/Coordinates', data, {headers: config})
+                .then(response => {
+                        setLocationCheckoutTime(dispatch, timestamp)
+                    }
+                )
+                .catch((error) => {
+                    console.log(error);
+                    // onSendingFail(dispatch, error)
+                })
+        }
+
+    }
+}
+
+const setLocationCheckoutTime = (dispatch, timestamp) => {
+console.log('action setLocationCheckoutTime');
+    dispatch({
+        type: SET_LOCATION_TIME,
+        payload: timestamp
     })
 }
