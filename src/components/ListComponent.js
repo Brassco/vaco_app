@@ -1,23 +1,24 @@
 import React, {Component} from 'react';
 import {ListView, Platform, BackHandler, Alert} from 'react-native';
 import {connect} from 'react-redux';
-import LocationServicesDialogBox from 'react-native-android-location-services-dialog-box';
 import BackgroundGeolocation from 'react-native-mauron85-background-geolocation';
 import {loadingOrders, openDetails, sendLocation} from '../actions';
 import ItemDetails from './ItemDetails';
 import {Header, Card, Spiner} from './common';
+import {Actions} from 'react-native-router-flux';
 
 
 class ListComponent extends Component {
 
     componentWillMount(){
+console.log('component will mount')
         this.props.loadingOrders(this.props.user);
         this.createDataSource(this.props);
 
     }
 
     componentDidMount() {
-        console.log('componentDidMount', this.props.loading)
+console.log('componentDidMount', this.props.loading)
         BackgroundGeolocation.configure({
             desiredAccuracy: 10,
             stationaryRadius: 50,
@@ -28,7 +29,7 @@ class ListComponent extends Component {
             startOnBoot: false,
             stopOnTerminate: false,
             locationProvider: BackgroundGeolocation.ACTIVITY_PROVIDER,
-            interval: 60000,
+            interval: 10000,
             fastestInterval: 5000,
             activitiesInterval: 10000,
             stopOnStillActivity: false,
@@ -51,15 +52,15 @@ class ListComponent extends Component {
         });
 
         BackgroundGeolocation.on('start', () => {
-
+console.log('start')
         });
 
         BackgroundGeolocation.on('stop', () => {
-
+console.log('stop')
         });
 
         BackgroundGeolocation.on('authorization', (status) => {
-
+console.log('authorization', status);
             if (status !== BackgroundGeolocation.AUTHORIZED) {
                 Alert.alert('Location services are disabled', 'Would you like to open location settings?', [
                     { text: 'Yes', onPress: () => BackgroundGeolocation.showLocationSettings() },
@@ -84,32 +85,6 @@ class ListComponent extends Component {
         });
     }
 
-    componentWillUpdate(){
-        console.log('componentWillUpdate', this.props);
-        if (this.props.loading === false && this.props.routeName) {
-            if (Platform.OS === 'android') {
-                LocationServicesDialogBox.checkLocationServicesIsEnabled({
-                    message: "<h2>Использовать гео-данные ?</h2>Для корректной работы приложения необходимы гео-данные:<br/><br/>Использовать GPS, Wi-Fi <br/>",
-                    ok: "Разрешить",
-                    cancel: "Нет",
-                    enableHighAccuracy: true, // true => GPS AND NETWORK PROVIDER, false => ONLY GPS PROVIDER
-                    showDialog: true, // false => Opens the Location access page directly
-                    openLocationServices: true // false => Directly catch method is called if location services are turned off
-                }).then(function (success) {
-                        // this.sendLocation();
-                    }.bind(this)
-                ).catch((error) => {
-                    console.log(error)
-                });
-
-                BackHandler.addEventListener('hardwareBackPress', () => {
-                    LocationServicesDialogBox.forceCloseDialog();
-                });
-            }
-
-        }
-    }
-
     componentWillUnmount() {
         BackgroundGeolocation.events.forEach(event => BackgroundGeolocation.removeAllListeners(event));
         // navigator.geolocation.clearWatch(this.watchId);
@@ -118,8 +93,7 @@ class ListComponent extends Component {
     sendLocation = (location) => {
         if (location) {
             const coordsObj = {
-                // CoordinatesValue: location.latitude + " " + location.longitude,
-                CoordinatesValue: "37.78825 -122.4324",
+                CoordinatesValue: location.latitude + " " + location.longitude,
                 UserId: this.props.user.info.Id
             }
             const now = Date.now();

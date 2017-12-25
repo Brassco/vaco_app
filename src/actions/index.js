@@ -41,16 +41,16 @@ export const loginUser = ({email, password}) => {
             type: LOGIN_USER
         })
 
-        var data = Querystring.stringify({
-            "grant_type": "password",
-            "username": email,
-            "password": password
-        });
         // var data = Querystring.stringify({
         //     "grant_type": "password",
-        //     "username": 'nariman.ospanov@kcell.kz',
-        //     "password": '9EO'
+        //     "username": email,
+        //     "password": password
         // });
+        var data = Querystring.stringify({
+            "grant_type": "password",
+            "username": 'nariman.ospanov@kcell.kz',
+            "password": '9EO'
+        });
         axios.post('http://vacowebapi.azurewebsites.net/token', data)
             .then(user => onLoginSuccess(dispatch, user.data))
             .catch((error) => {
@@ -164,6 +164,7 @@ export const sendLocation = (user, coordsObj, timestamp) => {
     return (dispatch) => {
         var data = Querystring.stringify(coordsObj);
         if (user) {
+console.log('anstion send location');
             const key = "Bearer "+user.access_token;
             const config = {'Authorization': key};
             axios.post('http://vacowebapi.azurewebsites.net/api/Coordinates', data, {headers: config})

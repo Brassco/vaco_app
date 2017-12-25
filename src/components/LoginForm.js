@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Platform, BackHandler} from 'react-native';
+import LocationServicesDialogBox from 'react-native-android-location-services-dialog-box';
 import {onEmailChange, onPasswordChange, loginUser} from '../actions';
 import {Card, CardItem, InputWithLabel, Button, ErrorText, Spiner, Header} from './common';
 
@@ -27,6 +29,28 @@ class LoginForm extends Component {
                 Войти
             </Button>
         )
+    }
+
+    componentDidMount() {
+        if (Platform.OS === 'android') {
+            LocationServicesDialogBox.checkLocationServicesIsEnabled({
+                message: "<h2>Использовать гео-данные ?</h2>Для корректной работы приложения необходимы гео-данные:<br/><br/>Использовать GPS, Wi-Fi <br/>",
+                ok: "Разрешить",
+                cancel: "Нет",
+                enableHighAccuracy: true, // true => GPS AND NETWORK PROVIDER, false => ONLY GPS PROVIDER
+                showDialog: true, // false => Opens the Location access page directly
+                openLocationServices: true // false => Directly catch method is called if location services are turned off
+            }).then(function (success) {
+                    // this.sendLocation();
+                }.bind(this)
+            ).catch((error) => {
+                console.log(error)
+            });
+
+            BackHandler.addEventListener('hardwareBackPress', () => {
+                LocationServicesDialogBox.forceCloseDialog();
+            });
+        }
     }
 
     render() {

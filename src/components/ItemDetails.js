@@ -1,6 +1,5 @@
 import React from 'react';
 import {View, Text, TouchableWithoutFeedback} from 'react-native';
-import { NavigationActions } from 'react-navigation';
 import {CardItem} from './common';
 import {ItemRow, AddressComponent, DeliveryDateComponent, CreatedDateComponent} from './parts';
 
