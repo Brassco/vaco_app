@@ -17,36 +17,27 @@ import moment from 'moment';
 class MessagesTabComponent extends React.Component {
 
     componentWillMount(){
-        const {user, selectedOrder} = this.props;
-        this.props.loadingMessages(user.access_token, selectedOrder.Id);
         this.createDataSource(this.props);
     }
 
     componentWillReceiveProps(nextProps) {
-
         this.createDataSource(nextProps);
     }
 
-    createDataSource({messages}) {
+    createDataSource({details}) {
         const ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
         })
 
         const questions = [];
 
-        messages.map((msg) => {
+        details.QnA.map((msg) => {
             if(msg.ResponseToQuestionId == null) {
                 questions.push(msg)
             }
         })
 
         this.dataSource = ds.cloneWithRows(questions)
-    }
-
-    openQuestionScreen = (msg) => {
-        // this.props.selectMessage(msg)
-        console.log('openQuestionScreen', msg);
-        // Actions.askQuestion();
     }
 
     onChangeMessage = (msg) => {
@@ -60,7 +51,9 @@ class MessagesTabComponent extends React.Component {
             text: this.props.msg,
             dateTime: moment().format()
         }
-        this.props.sendMessage(this.props.user, msgObj, this.props.selectedOrder.Id);
+        if (this.props.msg.length > 1) {
+            this.props.sendMessage(this.props.user, msgObj, this.props.selectedOrder.Id);
+        }
     }
 
     renderRow(message) {
@@ -74,18 +67,12 @@ class MessagesTabComponent extends React.Component {
     }
 
     renderMessages = () => {
-        if (this.props.loading == false) {
-            return (
-                <ListView
-                    enableEmptySections={true}
-                    dataSource={this.dataSource}
-                    renderRow={this.renderRow.bind(this)} />
-            )
-        } else {
-            return (
-                <Spiner size="large" />
-            )
-        }
+        return (
+            <ListView
+                enableEmptySections={true}
+                dataSource={this.dataSource}
+                renderRow={this.renderRow.bind(this)} />
+        )
     }
 
     render() {
@@ -120,6 +107,7 @@ const mapStateToProps = (state) => {
         selectedOrder: state.order.selectedOrder,
         selectedMsg: state.messages.selectedMsg,
         messages: state.messages.messages,
+        details: state.order.details,
         msg: state.messages.msg,
         loading: state.messages.loading
     }

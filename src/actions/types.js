@@ -10,6 +10,7 @@ export const ORDERS_LOADED_SUCCESS = 'orders_loaded_success';
 export const BACK_TO_LIST = 'back_to_list';
 export const SET_SELECTED_PAGE = 'set_selected_page';
 export const SET_LOCATION_TIME = 'set_location_time';
+export const SET_PHONE_VISIBILITY = 'set_phone_visibility';
 
 export const LOADING_PRICES = 'loading_prices';
 export const PRICES_LOADED_SUCCESS = 'prices_loaded_success';

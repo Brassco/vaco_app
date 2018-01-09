@@ -3,7 +3,7 @@ import {View, Text} from 'react-native';
 import {DetailsCard} from '../common';
 
 const CreatedDateComponent = ({date}) => {
-    const {textContainer, valueContainer, valueTextContainer, dateStyle, textStyle} = styles;
+    const {textContainer, valueContainer, dateStyle, textStyle} = styles;
     return (
         <DetailsCard>
             <View style={textContainer}>
@@ -15,14 +15,7 @@ const CreatedDateComponent = ({date}) => {
                 </Text>
             </View>
             <View style={valueContainer}>
-                <View style={valueTextContainer}>
-                    <Text style={{
-                        fontSize: 15,
-                        fontWeight: '500'
-                    }}>
-                        № 123456
-                    </Text>
-                </View>
+
             </View>
         </DetailsCard>
     )

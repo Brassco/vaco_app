@@ -3,7 +3,7 @@ import {Text } from 'react-native';
 import {connect} from 'react-redux';
 import Tabs from 'react-native-tabs';
 import {Actions} from 'react-native-router-flux';
-import {openDetails, loadingDetails, backToList, setSelectedPage} from '../actions';
+import {openDetails, loadingDetails, backToList, setSelectedPage, setPhoneVisibility} from '../actions';
 import {Card, Header,CardItem, Spiner} from './common';
 import DetailsTabComponent from './DetailsTabComponent';
 import ItemsTabComponent from './ItemsTabComponent';
@@ -27,7 +27,8 @@ class DetailsComponent extends Component {
             case '1':
                 return (
                     <DetailsTabComponent
-                        details={this.props.details}
+                        setPhoneVisibility={this.props.setPhoneVisibility}
+                        details={this.props}
                         orderHeader={this.props.selectedOrder.Header}
                     />
                 )
@@ -46,7 +47,8 @@ class DetailsComponent extends Component {
             default:
                 return (
                     <DetailsTabComponent
-                        details={this.props.details}
+                        setPhoneVisibility={this.props.setPhoneVisibility}
+                        details={this.props}
                         orderHeader={this.props.selectedOrder.Header}
                     />
                 )
@@ -154,8 +156,9 @@ const mapStateToProps = (state) => {
         selectedOrder: state.order.selectedOrder,
         selectedPage: state.order.selectedPage,
         details: state.order.details,
+        phoneIsVisible: state.order.phoneIsVisible,
         loading: state.order.loading
     }
 }
 
-export default connect(mapStateToProps,{openDetails, loadingDetails, backToList, setSelectedPage})(DetailsComponent);
+export default connect(mapStateToProps,{openDetails, loadingDetails, backToList, setSelectedPage, setPhoneVisibility})(DetailsComponent);

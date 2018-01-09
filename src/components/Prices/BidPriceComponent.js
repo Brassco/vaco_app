@@ -16,7 +16,6 @@ import {Card, Header,Button, ErrorText, Spiner} from '../common';
 class QuestionComponent extends Component {
 
     goBack = () => {
-        // this.props.backToList();
         Actions.pop();
     }
 
@@ -53,81 +52,76 @@ class QuestionComponent extends Component {
     }
 
     renderContent = () => {
-        if (this.props.loading == false) {
-            const {height, width} = Dimensions.get('window');
-            const {borderRound, priceContainer, containerHeight} = styles;
-            return (
-                <Card >
-                    <Header headerText={'Заявка'} backButton onPress={this.goBack}/>
-                    <View style={{
-                        flex: 1
-                    }}>
+        const {height, width} = Dimensions.get('window');
+        const {borderRound, priceContainer, containerHeight} = styles;
+        return (
+            <Card >
+                <Header headerText={'Заявка'} backButton onPress={this.goBack}/>
+                <View style={{
+                    flex: 1
+                }}>
+                    <View
+                        style={priceContainer}
+                    >
                         <View
-                            style={priceContainer}
-                        >
-                            <View
-                                style={[
-                                    borderRound,
-                                    containerHeight, {
-                                        flex:6
-                                    }
-                                ]}
-                            >
-                                <TextInput
-                                    placeholder={'Цена'}
-                                    maxLength = {40}
-                                    keyboardType='numeric'
-                                    onChangeText={this.changePrice.bind(this)}
-                                    value={this.props.price}
-                                />
-                            </View>
-                            <View style={[
+                            style={[
                                 borderRound,
                                 containerHeight, {
-                                    flex:3
+                                    flex:6
                                 }
-                            ]}>
-                                <Picker
-                                    selectedValue={"kzt"}
-                                    onValueChange={this.onChangeCountry.bind(this)}>
-                                    <Picker.Item label="KZT" value="kzt" />
-                                </Picker>
-                            </View>
-                        </View>
-                        <View style={[
-                            styles.borderRound,
-                            {
-                                height: 100
-                            }
-                        ]}>
+                            ]}
+                        >
                             <TextInput
-                                placeholder={'Введите сообщение'}
-                                editable = {true}
+                                placeholder={'Цена'}
                                 maxLength = {40}
-                                multiline = {true}
-                                numberOfLines = {4}
-                                onChangeText={this.changeMsg.bind(this)}
-                                value={this.props.msg}
+                                keyboardType='numeric'
+                                onChangeText={this.changePrice.bind(this)}
+                                value={this.props.price}
                             />
                         </View>
-                        <View
-                            style={containerHeight}
-                        >
-                            <Button onPress={this.sendMessage.bind(this)}>
-                                <Text>
-                                    Предложить цену
-                                </Text>
-                            </Button>
+                        <View style={[
+                            borderRound,
+                            containerHeight, {
+                                flex:3
+                            }
+                        ]}>
+                            <Picker
+                                selectedValue={"kzt"}
+                                onValueChange={this.onChangeCountry.bind(this)}>
+                                <Picker.Item label="KZT" value="kzt" />
+                            </Picker>
                         </View>
                     </View>
-                    <ErrorText>
-                        {this.props.error}
-                    </ErrorText>
-                </Card>
-            )
-        }
-        return (
-            <Spiner size="large"/>
+                    <View style={[
+                        styles.borderRound,
+                        {
+                            height: 100
+                        }
+                    ]}>
+                        <TextInput
+                            placeholder={'Введите сообщение'}
+                            editable = {true}
+                            maxLength = {40}
+                            multiline = {true}
+                            numberOfLines = {4}
+                            onChangeText={this.changeMsg.bind(this)}
+                            value={this.props.msg}
+                        />
+                    </View>
+                    <View
+                        style={containerHeight}
+                    >
+                        <Button onPress={this.sendMessage.bind(this)}>
+                            <Text>
+                                Предложить цену
+                            </Text>
+                        </Button>
+                    </View>
+                </View>
+                <ErrorText>
+                    {this.props.error}
+                </ErrorText>
+            </Card>
         )
     }
 

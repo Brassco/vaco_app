@@ -3,7 +3,7 @@ import {View, Text, Image} from 'react-native';
 import {DetailsCard} from '../common';
 
 const AddressComponent = ({from, to}) => {
-    const {imageStyle, textContainer, valueContainer, arrowContainer, textStyle, arrowText} = styles;
+    const {textContainer, valueContainer, textStyle} = styles;
     return (
         <DetailsCard >
             <View style={textContainer}>
@@ -12,18 +12,7 @@ const AddressComponent = ({from, to}) => {
                 </Text>
             </View>
             <View style={valueContainer}>
-                <View>
-                    <Image
-                        style={imageStyle}
-                        source={require('../img/arrow.png')}
-                    >
-                        <View style={arrowContainer}>
-                            <Text style={arrowText}>
-                                125
-                            </Text>
-                        </View>
-                    </Image>
-                </View>
+
             </View>
         </DetailsCard>
     )

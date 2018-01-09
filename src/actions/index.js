@@ -12,7 +12,8 @@ import {
     ORDERS_LOADED_SUCCESS,
     BACK_TO_LIST,
     SET_SELECTED_PAGE,
-    SET_LOCATION_TIME
+    SET_LOCATION_TIME,
+    SET_PHONE_VISIBILITY
 } from './types';
 import {Actions} from 'react-native-router-flux';
 import Querystring from 'querystring'
@@ -164,7 +165,6 @@ export const sendLocation = (user, coordsObj, timestamp) => {
     return (dispatch) => {
         var data = Querystring.stringify(coordsObj);
         if (user) {
-console.log('anstion send location');
             const key = "Bearer "+user.access_token;
             const config = {'Authorization': key};
             axios.post('http://vacowebapi.azurewebsites.net/api/Coordinates', data, {headers: config})
@@ -187,4 +187,12 @@ console.log('action setLocationCheckoutTime');
         type: SET_LOCATION_TIME,
         payload: timestamp
     })
+}
+
+export const setPhoneVisibility = () => {
+    return (dispatch) => {
+        dispatch({
+            type: SET_PHONE_VISIBILITY
+        })
+    }
 }

@@ -11,14 +11,12 @@ import {Actions} from 'react-native-router-flux';
 class ListComponent extends Component {
 
     componentWillMount(){
-console.log('component will mount')
         this.props.loadingOrders(this.props.user);
         this.createDataSource(this.props);
 
     }
 
     componentDidMount() {
-console.log('componentDidMount', this.props.loading)
         BackgroundGeolocation.configure({
             desiredAccuracy: 10,
             stationaryRadius: 50,
@@ -29,7 +27,7 @@ console.log('componentDidMount', this.props.loading)
             startOnBoot: false,
             stopOnTerminate: false,
             locationProvider: BackgroundGeolocation.ACTIVITY_PROVIDER,
-            interval: 10000,
+            interval: 60000,
             fastestInterval: 5000,
             activitiesInterval: 10000,
             stopOnStillActivity: false,
@@ -52,15 +50,15 @@ console.log('componentDidMount', this.props.loading)
         });
 
         BackgroundGeolocation.on('start', () => {
-console.log('start')
+
         });
 
         BackgroundGeolocation.on('stop', () => {
-console.log('stop')
+
         });
 
         BackgroundGeolocation.on('authorization', (status) => {
-console.log('authorization', status);
+
             if (status !== BackgroundGeolocation.AUTHORIZED) {
                 Alert.alert('Location services are disabled', 'Would you like to open location settings?', [
                     { text: 'Yes', onPress: () => BackgroundGeolocation.showLocationSettings() },

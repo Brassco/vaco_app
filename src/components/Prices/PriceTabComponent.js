@@ -1,104 +1,105 @@
 import React from 'react';
-import { Text, View, Image} from "react-native";
+import { Text, View, Image, ListView} from "react-native";
 import {connect} from 'react-redux';
 import {loadingPrices} from '../../actions/PriceActions';
-import {DetailsCard, Spiner, CardItem} from '../common';
+import {Card, CardItem} from '../common';
 
 class PriceTabComponent extends React.Component {
+
     componentWillMount(){
-        const {userKey, selectedOrder} = this.props;
-        this.props.loadingPrices(userKey, selectedOrder.Id);
+        this.createDataSource(this.props);
     }
 
-    renderPrices = () => {
+    componentWillReceiveProps(nextProps) {
+        this.createDataSource(nextProps);
+    }
+
+    createDataSource({details}) {
+        const ds = new ListView.DataSource({
+            rowHasChanged: (r1, r2) => r1 !== r2
+        })
+        var applications = details.Applications !== null ? details.Applications : [];
+        this.dataSource = ds.cloneWithRows(applications)
+    }
+
+    renderRow(price) {
         const {
-            boldText,
             companyName,
             userImg,
             isOnline,
-            msgIcon,
             priceText,
             stateText,
             extraDetailsText,
-            proText
         } = styles;
-
-        if (this.props.loading == false) {
-
-            return (
-                <View style={{flex: 1}}>
-                    {
-                        this.props.prices.map((price) => {
-                            return (
-                                <CardItem key={price.Id}>
-                                    <View style={{ flex: 1}}>
-                                        <Image
-                                            style={userImg}
-                                            source={require('../img/user.png')}
-                                        />
-                                    </View>
-                                    <View style={{
-                                        flex: 4
-                                    }}>
-                                        <View>
-                                            <Text style={companyName}>
-                                                TransLine
-                                            </Text>
-                                        </View>
-                                        <View>
-                                            <Text style={isOnline}>
-                                                сейчс на сайте
-                                            </Text>
-                                        </View>
-                                        <View style={{
-                                            flexDirection: 'row'
-                                        }}>
-                                            <Image
-                                                style={msgIcon}
-                                                source={require('../img/msg.png')}
-                                            />
-                                            <Text style={boldText}>
-                                                0
-                                            </Text>
-                                        </View>
-                                        <View>
-                                            <Text style={proText}>
-                                                PRO
-                                            </Text>
-                                        </View>
-                                    </View>
-                                    <View style={{ flex: 3}}>
-                                        <View>
-                                            <Text style={priceText}>
-                                                {price.ProposedPrice} Руб
-                                            </Text>
-                                        </View>
-                                        <View>
-                                            <Text style={stateText}>
-                                                Готов к перевозке
-                                            </Text>
-                                        </View>
-                                        <View>
-                                            <Text style={extraDetailsText}>
-                                                только перевозка
-                                            </Text>
-                                        </View>
-                                    </View>
-                                </CardItem>
-                            )
-                        })
-                    }
+        return (
+            <CardItem key={price.Id}>
+                <View style={{ flex: 1}}>
+                    <Image
+                        style={userImg}
+                        source={require('../img/user.png')}
+                    />
                 </View>
-            )
-        } else {
-            return (
-                <Spiner size="large" />
-            )
-        }
+                <View style={{
+                    flex: 4
+                }}>
+                    <View>
+                        <Text style={companyName}>
+                            TransLine
+                        </Text>
+                    </View>
+                    <View>
+                        <Text style={isOnline}>
+                            сейчс на сайте
+                        </Text>
+                    </View>
+
+                </View>
+                <View style={{ flex: 3}}>
+                    <View>
+                        <Text style={priceText}>
+                            {price.ProposedPrice} Руб
+                        </Text>
+                    </View>
+                    <View>
+                        <Text style={stateText}>
+                            Готов к перевозке
+                        </Text>
+                    </View>
+                    <View>
+                        <Text style={extraDetailsText}>
+                            только перевозка
+                        </Text>
+                    </View>
+                </View>
+            </CardItem>
+        )
+    }
+
+    renderPrices = () => {
+    if (this.props.details.Applications) {
+        return (
+            <ListView
+                enableEmptySections={true}
+                dataSource={this.dataSource}
+                renderRow={this.renderRow.bind(this)} />
+        )
+    }
+    return (
+        <View>
+            <Text>
+                Еще нету ценовых предложений
+            </Text>
+        </View>
+    )
+
     }
 
     render() {
-        return this.renderPrices()
+        return (
+            <Card>
+                {this.renderPrices()}
+            </Card>
+        )
     }
 }
 
@@ -106,6 +107,7 @@ const mapStateToProps = (state) => {
     return {
         userKey: state.auth.user.access_token,
         selectedOrder: state.order.selectedOrder,
+        details: state.order.details,
         prices: state.prices.prices,
         loading: state.prices.loading
     }
