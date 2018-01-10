@@ -48,7 +48,7 @@ class QuestionComponent extends Component {
     }
 
     onChangeCountry = (itemValue, itemIndex) => {
-        console.log(itemValue, itemIndex);
+        
     }
 
     renderContent = () => {

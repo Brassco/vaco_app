@@ -42,15 +42,10 @@ export const loginUser = ({email, password}) => {
             type: LOGIN_USER
         })
 
-        // var data = Querystring.stringify({
-        //     "grant_type": "password",
-        //     "username": email,
-        //     "password": password
-        // });
         var data = Querystring.stringify({
             "grant_type": "password",
-            "username": 'nariman.ospanov@kcell.kz',
-            "password": '9EO'
+            "username": email,
+            "password": password
         });
         axios.post('http://vacowebapi.azurewebsites.net/token', data)
             .then(user => onLoginSuccess(dispatch, user.data))
@@ -73,7 +68,6 @@ export const loadingOrders = (user) => {
             .catch((error) => {
                 console.log(error);
             })
-        // onOrdersListLoaded(dispatch, orders)
     }
 }
 
@@ -182,7 +176,6 @@ export const sendLocation = (user, coordsObj, timestamp) => {
 }
 
 const setLocationCheckoutTime = (dispatch, timestamp) => {
-console.log('action setLocationCheckoutTime');
     dispatch({
         type: SET_LOCATION_TIME,
         payload: timestamp

@@ -21,7 +21,6 @@ class DetailsComponent extends Component {
     }
 
     renderTabs() {
-        console.log(this.props.selectedPage);
         const {Item} = this.props.details;
         switch (this.props.selectedPage) {
             case '1':
@@ -56,7 +55,6 @@ class DetailsComponent extends Component {
     }
 
     selectTab = (id) => {
-        console.log('selecteTab', id);
         this.props.setSelectedPage(id);
     }
 

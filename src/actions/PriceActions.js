@@ -33,8 +33,6 @@ export const sendMessage = (userKey, msgObj) => {
         'Authorization': key
     };
 
-    console.log(userKey, msgObj, data);
-
     return (dispatch) => {
         dispatch({
             type: PRICE_SENDING_START
@@ -64,7 +62,6 @@ export const changePrice = (price) => {
 export const setCountry = () => {}
 
 const onSendingFail = (dispatch, error) => {
-    console.log('price fail', error);
     dispatch({
         type: PRICE_SENDING_FAIL
     })
@@ -78,7 +75,7 @@ const onPricesLoaded = (dispatch, prices) => {
 }
 
 const onMessagesSended = (dispatch, res) => {
-console.log('price sended');
+
     dispatch({
         type: PRICE_MESSAGE_SENDED_SUCCESS
     })

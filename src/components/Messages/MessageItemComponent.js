@@ -10,7 +10,6 @@ class MessageItemComponent extends Component {
 
     openQuestionScreen = (msg) => {
         this.props.selectMessage(msg)
-        console.log('openQuestionScreen', msg);
         Actions.askQuestion();
     }
 
